@@ -2,9 +2,9 @@ import random
 
 # Lista de palavras por dificuldade
 palavras = {
-    5: ["manga", "cobra", "vento", "piano", "bolas"],
-    6: ["amendo", "garoto", "prisma", "sabado", "tomate"],
-    7: ["abacate", "canetas", "patroas", "vitrola", "bananas"]
+    5: ["manga", "cobra", "vento", "piano", "sonho"],
+    6: ["baleia", "garoto", "xadrez", "cabelo", "tomate"],
+    7: ["abacate", "canetas", "natural", "vitrola", "tabuada"],
 }
 
 # Função que mostra as regras do jogo
