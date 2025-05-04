@@ -1,13 +1,13 @@
-import random
+import random  # Importa o módulo random para escolher palavras aleatórias
 
-# Lista de palavras por dificuldade
+# Lista de palavras separadas por dificuldade (número de letras)
 palavras = {
     5: ["manga", "cobra", "vento", "piano", "sonho"],
     6: ["baleia", "garoto", "xadrez", "cabelo", "tomate"],
     7: ["abacate", "canetas", "natural", "vitrola", "tabuada"],
 }
 
-# Função que mostra as regras do jogo
+# Função que exibe as regras do jogo
 def mostrar_regras():
     print("=" * 50)
     print("JOGO DA PALAVRA SECRETA")
@@ -26,83 +26,84 @@ REGRAS DO JOGO
 Boa sorte! Vamos jogar!
     """)
 
-# Função principal do jogo
+# Função principal que executa o jogo
 def jogar():
-    while True:
-        mostrar_regras()
+    while True:  # Loop principal do jogo, para permitir jogar várias vezes
+        mostrar_regras()  # Mostra as regras a cada nova rodada
 
-        # Solicitar a dificuldade
+        # Solicita ao jogador que escolha a dificuldade
         dificuldade = None
-        while dificuldade not in palavras:
+        while dificuldade not in palavras:  # Garante que a entrada seja válida
             entrada = input("Escolha a dificuldade (5, 6 ou 7 letras): ")
-            if entrada.isdigit():
+            if entrada.isdigit():  # Verifica se a entrada é um número
                 dificuldade = int(entrada)
                 if dificuldade not in palavras:
                     print("Dificuldade inválida. Tente novamente.")
             else:
                 print("Por favor, insira um número válido.")
 
-        # Primeiro, pegamos a lista de palavras com o tamanho escolhido pelo jogador
+        # Seleciona a lista de palavras de acordo com a dificuldade escolhida
         if dificuldade == 5:
             lista_de_palavras = palavras[5]
         elif dificuldade == 6:
             lista_de_palavras = palavras[6]
-        else:  # Se não for 5 nem 6, só pode ser 7
-            lista_de_palavras = palavras[7]
+        else:
+            lista_de_palavras = palavras[7]  # Se não for 5 ou 6, é 7
 
-        # Agora, escolhemos uma palavra aleatória dessa lista
+        # Escolhe uma palavra aleatória da lista
         palavra_secreta = random.choice(lista_de_palavras)
 
-        # O número de tentativas será igual ao número de letras da palavra
+        # Define o número de tentativas com base no tamanho da palavra
         tentativas = len(palavra_secreta)
 
-        # Informamos ao jogador que o jogo vai começar
+        # Informa ao jogador que o jogo vai começar
         print()
         print("Uma palavra foi escolhida. Boa sorte!")
         print()
 
-        # Loop para os palpites
+        # Loop para os palpites do jogador
         while tentativas > 0:
             print(f"Tentativas restantes: {tentativas}")
             palpite = input(f"Digite seu palpite de {dificuldade} letras: ")
-            palpite = palpite.lower()
+            palpite = palpite.lower()  # Converte o palpite para minúsculas
 
             # Verifica se o palpite tem o tamanho correto
             if len(palpite) != dificuldade:
                 print()
                 print(f"A palavra deve ter exatamente {dificuldade} letras.")
                 print()
-                continue
+                continue  # Volta para o início do loop
 
-            # Analisando o palpite
+            # Gera a dica com base no palpite do jogador
             dica = ""
             for i in range(dificuldade):
                 if palpite[i] == palavra_secreta[i]:
-                    dica += f"[{palpite[i].upper()}]"  # Letra correta no lugar certo
+                    dica += f"[{palpite[i].upper()}]"  # Letra certa no lugar certo
                 elif palpite[i] in palavra_secreta:
-                    dica += f"({palpite[i]})"  # Letra correta no lugar errado
+                    dica += f"({palpite[i]})"  # Letra certa no lugar errado
                 else:
                     dica += f" {palpite[i]} "  # Letra errada
 
             print(f"Dica: {dica}")
             print()
 
-            # Verifica se o jogador acertou a palavra
+            # Verifica se o jogador acertou a palavra completa
             if palpite == palavra_secreta:
                 print(f"Parabéns! Você acertou a palavra '{palavra_secreta.upper()}'!")
-                break
+                break  # Sai do loop de tentativas
 
-            tentativas -= 1
+            tentativas -= 1  # Reduz o número de tentativas restantes
 
+        # Se o jogador não acertou a palavra após todas as tentativas
         if palpite != palavra_secreta:
             print(f"Você perdeu! A palavra secreta era: '{palavra_secreta.upper()}'.")
 
-        # Pergunta se o jogador quer jogar novamente
+        # Pergunta se o jogador deseja jogar novamente
         print()
         jogar_novamente = input("Gostaria de jogar novamente? (s/n): ").lower()
         if jogar_novamente != 's':
             print("Obrigado por jogar! Até logo!")
-            break
+            break  # Sai do loop principal e encerra o jogo
 
-# Inicia o jogo
+# Inicia o jogo chamando a função principal
 jogar()
